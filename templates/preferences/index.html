@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container ml-3 mt-3">
+    {% include 'partials/_messages.html' %}
+    <h5> Choose Your Preferred Currency </h5>
+    <form action="{% url 'preferences' %}" method="POST">
+        {%csrf_token%}
+        
+    <div class="input-group">
+        <div class="input-group"> 
+            <select name="currency" class="form-select" id="inputGroupSelect04" >
+                {% if user_preferences.currency %}
+                    <option name="currency" id ="currency" selected value="{{user_preferences.currency}}">{{user_preferences.currency}}</option>
+                {% endif %}
+                {% for currency in currencies %}
+                    <option name="currency" value="{{currency.name}} - {{currency.value}}"> {{currency.name}} - {{currency.value}} </option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="save">
+            </div>
+        </div>     
+    </div>
+    <hr />
+    </form>
+    <div class="d-flex justify-content-start">
+        <div class ="exchangeRatesArea">
+            <h5> Below ({{user_preferences.currency}}) Latest Currency Exchange Rates </h5>
+            <div class="table-output">
+                <table class="table table-sm table-stripped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Currency </th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <api key="{{API_KEY}}"></api>
+    <script src="{% static 'js/exchangeRates.js' %}"></script>
+</div>
+
+{% endblock content %}

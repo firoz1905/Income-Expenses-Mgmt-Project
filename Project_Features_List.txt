@@ -1,0 +1,22 @@
+****** This is Income and Expenses management Website for user to manage thier expenses and income . It will also allows to visualize expenses/incomes in different JS charts 
+Main Functionalities Include :
+1. Registration/login
+2. Account Activation Email
+3. Password Reset link with setting up new password
+4. Adding and Managing different category Expenses (CRUD Operations). 
+5. Adding and Managing different sources of Incomes (CRUD Operations) .
+6. Visualizing the expenses and income summary's using all kinds of JS charts with random function in js. 
+7. Pagination for the table display of expenses and incomes.
+8. Robust search button for searching expenses and incomes.
+9. Able to Export the expenses/incomes as Excel and CSV files. 
+10.Able to set individual User preferences in terms of what currency they want to set for their account profiles
+11.Based on the currency preferences , display the latest currency exchange rates using API
+12.User Account profile page to upload the profile pic and update other fields.
+13.User profile page provides link to different social networking websites
+14.Expenses page will have a chart that shows the cummulative comparison of expenses in last 3-4 months and also another chart that shows category wise expenses amount.
+15.Income Page will have a chart that shows Expenses vs Income comaprisons
+15.Logout Page
+
+Product backlog :
+1. Home Page with master dashboard with different charts ( weekly , monthly , yearly)
+2. user Account Profile page to scroll/List some latest stock news.

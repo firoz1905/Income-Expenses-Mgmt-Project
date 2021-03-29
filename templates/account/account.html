@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/> -->
+<!-- MDB -->
+<!-- <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
+  rel="stylesheet"
+/> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<title>Profile Card</title>
+
+<div class="bg-dark">
+    <div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class ="col-md-10 mt-2 pt-3">
+            <div class="row z-depth-3">
+                <div class="col-sm-4 bg-info rounded-left">
+                    <div class="card-block text-center text-white">
+                        <!-- <i class="fas fa-user-tie"></i> -->
+                        <form action="{% url 'account' %}" enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+                        <i class="fa-7x mt-5"> <img class="img-thumbnail mt-2" id="profileImage" src="{{user_profile.profile_pic.url}}" alt=""  placeholder ="" width="70%"></i>
+                        <h2 class="font-weight-bold mt-4">{{user.username}}</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                        </svg> 
+                        <i class="bi bi-upload mt-5"> <input  class="mt-2 form-control form-control-sm font-weight-bold" style="visibility: hidden;" id="uploadImage" name="uploadImage" type="file"  placeholder="Photo" capture>
+                             <div class="col-sm-4 mx-auto mt-3">
+                            <input type="submit" value="Upload" class="btn-sm btn-block btn-primary submit-btn">
+                        </div></i> 
+                        </form>     
+                    </div>
+                </div>
+                <div class="col-sm-8 bg-dark rounded-right">
+                    <h3 class="mt-3 text-center">Your Account Information</h3>
+                    <hr class="badge-primary mt-0 w-25">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p >Email</p>
+                            <h6 class="text-muted">{{user.email}}</h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="font-weight-bold">Your Preferred Currency </p>
+                            <h6 class="text-muted">{{user_profile.currency}}</h6>
+                        </div>
+                        
+                    </div>
+                    <h4 class="mt-3"></h4>
+                    <hr class="bg-primary">
+                    <form action="{% url 'account_update' %}" method="POST">
+                        {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p class="font-weight-bold">Date of Birth </p>
+                            <input class="form-control form-control-sm" type="date" name="dob" value="{{user_profile.dob|date:'Y-m-d'}}">
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="font-weight-bold">Phone: </p>
+                            <input type="number" name="phone_number" class="form-control form-control-sm"
+                            id="phoneNumberField" value="{{user_profile.phone}}">
+                        </div>
+                        
+                    </div>
+                
+                    <!-- <hr class="bg-primary"> -->
+                    <div class="row">
+                        <div class="col-sm-4 mx-auto mt-3">
+                            <input type="submit" , value="Update" class="btn-sm btn-block btn-primary submit-btn">
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </form>
+                    <hr class="bg-primary">
+                    <ul class="list-unstyled d-flex justify-content-center mt-4">
+                        <li><a href="https://facebook.com"><i class="fab fa-facebook-f px-3 h4 text-info"></i></a></li>
+                        <li><a href="https://www.youtube.com/"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
+                        <li><a href="https://twitter.com"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+</div>
+
+<div class="row">                                     
+    <div class="col-md-4"></div>
+    {% include 'partials/_messages.html' %}
+    <script src="{% static 'js/account.js' %}"></script>
+</div>
+
+{% endblock content %}

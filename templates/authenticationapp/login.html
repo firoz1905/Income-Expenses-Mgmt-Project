@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        
+    </div>
+    <div class="col-md-5 mt-3">
+        <h1 id="head">
+            <img src="{% static 'img/logo.png' %}" width="55" height="55" alt="">
+            QuickBook Expenses
+        </h1>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <div class="card mt-5">
+            <div class="card-body">
+                <div class="card-title py-3">
+                    <h4>Login to your Account</h4>
+                </div>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+
+                    {% include 'partials/_messages.html' %}
+
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control form-control-sm" placeholder="username"
+                            id="usernameField" value="{{fieldValues.username}}">
+                    </div>
+                    <div class="usernameFeedbackArea invalid-feedback" style="display:none">
+                    </div>
+                    <p class="text-sm text-success usernameSuccessOutput"></p>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control form-control-sm"
+                            placeholder="password" id="passwordField">
+                    </div>
+                    <small class="float-right py-3 showPasswordToggle">SHOW</small>
+                    <input type="submit" , value="login" class="btn btn-block btn-primary submit-btn">
+                </form>
+                <div class="container mt-3">
+                    <span class="text-lead lead">Don't have an account ? <a href="{% url 'register' %}"> Register </a>
+                    </span><br>
+                    <span class="text-lead lead">Forgot Password ? <a href="{% url 'request-password' %}"> Reset it </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock content %}
