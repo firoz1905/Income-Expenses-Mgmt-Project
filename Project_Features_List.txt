@@ -1,4 +1,5 @@
-****** This is Income and Expenses management Website for user to manage thier expenses and income . It will also allows to visualize expenses/incomes in different JS charts 
+****** This is Income and Expenses management Website for user to manage thier expenses and income . It will also allow us to visualize expenses/incomes in different JS charts 
+****** Deployed on Heroku - https://quickbookexpensesapp.herokuapp.com/
 Main Functionalities Include :
 1. Registration/login
 2. Account Activation Email
