@@ -75,9 +75,17 @@ def add_income(request):
         if not description:
             messages.error(request,"Description is required")
             return render(request,'income/add_income.html',context)
-        newincome=UserIncome.objects.create(owner=request.user,amount=amount,date=date,description=description,source=source)
-        messages.success(request,"Record saved successfully !")
-        return redirect('income')
+        if date:
+            date_from_form=datetime.datetime.strptime(date,"%Y-%m-%d")
+            print(type(date_from_form))
+            print(type(datetime.datetime.today()))
+            if date_from_form > datetime.datetime.today():
+                messages.error(request,"Income Date cannot be in the future")
+                return render(request,'income/add_income.html',context)
+            else:
+                newincome=UserIncome.objects.create(owner=request.user,amount=amount,date=date,description=description,source=source)
+                messages.success(request,"Record saved successfully !")
+                return redirect('income')
 
 @login_required(login_url="/authenticationapp/login")
 def income_edit(request,id):
@@ -101,14 +109,23 @@ def income_edit(request,id):
         if not description:
             messages.error(request,"Description is required")
             return render(request,'income/edit_income.html',context)
+        if date:    
+            date_from_form=datetime.datetime.strptime(date,"%Y-%m-%d")
+            print(type(date_from_form))
+            print(type(datetime.datetime.today()))
+            if date_from_form > datetime.datetime.today():
+                messages.error(request,"Income Date cannot be in the future")
+                return render(request,'income/edit_income.html',context)
+            else:
         ## Updating
-        income.owner=request.user
-        income.amount=amount
-        income.description=description
-        income.source=source
-        income.save()
-        messages.success(request,"Income updated successfully !")
-        return redirect('income')
+                income.owner=request.user
+                income.amount=amount
+                income.description=description
+                income.source=source
+                income.date=date
+                income.save()
+                messages.success(request,"Income updated successfully !")
+                return redirect('income')
 
 @login_required(login_url="/authenticationapp/login")
 def delete_income(request,id):

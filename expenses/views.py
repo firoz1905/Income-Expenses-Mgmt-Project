@@ -79,9 +79,18 @@ def add_expense(request):
         if not description:
             messages.error(request,"Description is required")
             return render(request,'expenses/add_expense.html',context)
-        newExpense=Expense.objects.create(owner=request.user,amount=amount,date=date,description=description,category=category)
-        messages.success(request,"Expense saved successfully !")
-        return redirect('expenses')
+        if date:    
+            date_from_form=datetime.datetime.strptime(date,"%Y-%m-%d")
+            print(type(date_from_form))
+            print(type(datetime.datetime.today()))
+            if date_from_form > datetime.datetime.today():
+                messages.error(request,"Expense Date cannot be in the future")
+                return render(request,'expenses/add_expense.html',context)
+            else:   
+                newExpense=Expense.objects.create(owner=request.user,amount=amount,date=date,description=description,category=category)
+                print(newExpense.date)
+                messages.success(request,"Expense saved successfully !")
+                return redirect('expenses')
 
 @login_required(login_url="/authenticationapp/login")
 def expense_edit(request,id):
@@ -105,14 +114,23 @@ def expense_edit(request,id):
         if not description:
             messages.error(request,"Description is required")
             return render(request,'expenses/edit-expense.html',context)
-        ## Updating
-        expense.owner=request.user
-        expense.amount=amount
-        expense.description=description
-        expense.category=expense.category
-        expense.save()
-        messages.success(request,"Expense updated successfully !")
-        return redirect('expenses')
+        if date:    
+            date_from_form=datetime.datetime.strptime(date,"%Y-%m-%d")
+            print(type(date_from_form))
+            print(type(datetime.datetime.today()))
+            if date_from_form > datetime.datetime.today():
+                messages.error(request,"Expense Date cannot be in the future")
+                return render(request,'expenses/edit-expense.html',context)
+            else:
+                ## Updating
+                expense.owner=request.user
+                expense.amount=amount
+                expense.description=description
+                expense.category=expense.category
+                expense.date=date
+                expense.save()
+                messages.success(request,"Expense updated successfully !")
+                return redirect('expenses')
 
 @login_required(login_url="/authenticationapp/login")
 def delete_expense(request,id):
